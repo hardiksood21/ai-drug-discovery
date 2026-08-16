@@ -20,6 +20,18 @@ Every module in this repository contains **fully working code, reproducible benc
 |:---|:---|:---|:---|:---|:---:|
 | **[`01-rdkit-solubility`](./01-rdkit-solubility/)** | ADME Property Prediction | Delaney (ESOL) | RDKit, ECFP4 (Morgan Fingerprints, $r=2$, 2048-bit), Random Forest Regression | **Test $R^2 = 0.714$**<br>**Test RMSE = 1.163 $\log(\text{mol/L})$** | **Completed & Validated** |
 | **[`02-deep-learning-fastai`](./02-deep-learning-fastai/)** | Deep Learning & PyTorch | Computer Vision / CIFAR | PyTorch, ResNet-18 Transfer Learning, AdamW, Cosine Annealing, Data Augmentations | **Val Accuracy = 94.5%**<br>**CrossEntropy Loss** | **Completed & Validated** |
+| **[`03-deepchem-solubility`](./03-deepchem-solubility/)** | Molecular Graph Networks | Delaney (ESOL) | DeepChem, `ConvMolFeaturizer`, `GraphConvModel` (Dual GraphConv + Pooling) | **Test $R^2 = 0.785$**<br>**Test RMSE = 0.982 $\log(\text{mol/L})$** | **Completed & Validated** |
+
+---
+
+## 📊 Benchmark Spotlight: Traditional ML vs. Graph Convolutional Neural Networks
+
+A core highlight of this research portfolio is the side-by-side performance evaluation on the **Delaney (ESOL)** benchmark dataset using the exact same 80/20 train-test split ($N_{\text{train}} = 902$, $N_{\text{test}} = 226$, seed `42`):
+
+| Model Architecture | Input Representation | Training $R^2$ | Test $R^2$ | Test RMSE ($\log S$, mol/L) | Relative Improvement |
+|:---|:---|:---: |:---:|:---:|:---:|
+| **Phase 1**: Random Forest Baseline | ECFP4 Morgan Fingerprint (2048-bit) | `0.9403` | `0.7138` | `1.1631` | Baseline |
+| **Phase 3**: DeepChem `GraphConvModel` | `ConvMol` Molecular Graph | `0.8842` | **`0.7854`** | **`0.9821`** | **$+10.0\%$ $R^2$ / $-15.6\%$ RMSE** |
 
 ---
 
@@ -27,18 +39,17 @@ Every module in this repository contains **fully working code, reproducible benc
 
 ### [Phase 1: Small Molecule Aqueous Solubility Prediction (Delaney ESOL)](./01-rdkit-solubility/)
 - **Biological Context**: Aqueous solubility ($\log S$) is a fundamental ADME parameter determining drug absorption, bioavailability, and formulation feasibility in early-stage discovery.
-- **Cheminformatics Pipeline**:
-  1. Parsing chemical structures from SMILES representations into RDKit `Mol` graph objects.
-  2. Generating Extended-Connectivity Fingerprints (**ECFP4**, radius $r=2$) hashed to 2048-bit circular bit vectors.
-  3. Training an ensemble `RandomForestRegressor` with 80/20 train-test splitting.
-- **Key Findings**: Achieved an $R^2$ of **0.714** and RMSE of **1.163** on the independent test split (226 compounds).
+- **Cheminformatics Pipeline**: SMILES parsing with RDKit, ECFP4 2048-bit Morgan Fingerprint extraction, `RandomForestRegressor` ensemble modeling.
+- **Key Findings**: Baseline test performance achieved $R^2 = 0.714$ and $\text{RMSE} = 1.163$.
 
 ### [Phase 2: Practical Deep Learning & PyTorch Infrastructure](./02-deep-learning-fastai/)
-- **Theoretical Foundations**:
-  1. Deep neural network mechanics: Tensors, autograd gradient tracking (`loss.backward()`), backpropagation.
-  2. Computer Vision Feature Extraction: Pre-trained convolutional backbones (`ResNet-18`) adapted with custom classification heads.
-  3. Regularization & Optimization: Weight Decay ($L_2$), Dropout ($p=0.3$), `AdamW` optimizer with Cosine Annealing learning rate schedule.
-- **Deliverables**: Modular PyTorch script ([`pytorch_classifier.py`](./02-deep-learning-fastai/pytorch_classifier.py)) and validated Google Colab notebook ([`pytorch_classifier.ipynb`](./02-deep-learning-fastai/pytorch_classifier.ipynb)).
+- **Theoretical Foundations**: Deep neural network mechanics, PyTorch autograd engine, transfer learning using `ResNet-18`, weight decay ($L_2$) regularization, `AdamW` optimizer, and Cosine Annealing learning rate policy.
+- **Deliverables**: Modular PyTorch script ([`pytorch_classifier.py`](./02-deep-learning-fastai/pytorch_classifier.py)) and validated notebook ([`pytorch_classifier.ipynb`](./02-deep-learning-fastai/pytorch_classifier.ipynb)).
+
+### [Phase 3: DeepChem Molecular Graph Networks](./03-deepchem-solubility/)
+- **Graph Representation Learning**: Converts SMILES strings directly into molecular graph structures ($G = (V, E)$) via `ConvMolFeaturizer`, extracting 75-dimensional atom feature vectors.
+- **GraphConv Architecture**: Dual Graph Convolution layers (128 channels), max graph pooling, dense projection (128 units), and dropout ($p=0.2$) regularization.
+- **Key Findings**: Outperformed traditional ECFP4 fingerprints, increasing test $R^2$ to **0.7854** and decreasing test RMSE to **0.9821 $\log(\text{mol/L})$**.
 
 ---
 
@@ -46,8 +57,8 @@ Every module in this repository contains **fully working code, reproducible benc
 
 1. **Phase 1 (Completed)**: RDKit Cheminformatics & Topological Fingerprints (ESOL Solubility Prediction).
 2. **Phase 2 (Completed)**: Deep Learning & PyTorch Infrastructure (Transfer Learning & Optimization).
-3. **Phase 3 (Active Target)**: DeepChem Graph Convolutional Neural Networks (`GraphConvModel`) on ESOL dataset for direct baseline comparison against Phase 1.
-4. **Phase 4 (Upcoming)**: Structure-Based Binding Affinity Prediction on PDBbind with PyTorch Geometric (PyG).
+3. **Phase 3 (Completed)**: DeepChem Graph Convolutional Neural Networks (`GraphConvModel`) on ESOL dataset.
+4. **Phase 4 (Active Target)**: Structure-Based Binding Affinity Prediction on PDBbind with PyTorch Geometric (PyG).
 5. **Phase 5 (Upcoming)**: Protein Structure Representation (ESM-2) & Molecular Docking Comparison (AutoDock Vina vs. DiffDock).
 6. **Phase 6 (Upcoming Capstone)**: De Novo Molecule Generation & Reinforcement Learning (REINVENT Pipeline).
 
@@ -55,7 +66,7 @@ Every module in this repository contains **fully working code, reproducible benc
 
 ## ⚙️ Technical Stack & Dependencies
 
-- **Cheminformatics & Molecular Processing**: `RDKit`, `TeachOpenCADD`
+- **Cheminformatics & Graph Learning**: `DeepChem`, `RDKit`, `TeachOpenCADD`
 - **Deep Learning Frameworks**: `PyTorch`, `torchvision`, `fastai`
 - **Machine Learning & Analytics**: `scikit-learn`, `pandas`, `numpy`
 - **Visualization**: `matplotlib` (publication quality)
