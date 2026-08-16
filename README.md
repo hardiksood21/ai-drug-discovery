@@ -1,8 +1,7 @@
-# AI & Machine Learning for Drug Discovery: A Multi-Scale Computational Portfolio
+# AI & Machine Learning for Drug Discovery: A Multi-Scale Computational Benchmark
 
 **Author**: Hardik Sood ([@hardiksood21](https://github.com/hardiksood21))  
-**Focus Area**: Computational Chemistry, Cheminformatics, Molecular Graph Representation Learning, Structural Biology & Generative AI  
-**Target Applications**: Graduate Admissions (CMU MSCB, MIT, Oxford), DAAD WISE/RISE, Mitacs Globalink & Biopharma Research Labs
+**Domain**: Computational Chemistry, Cheminformatics, Molecular Graph Representation Learning, Structural Biology & Generative AI  
 
 ---
 
@@ -102,6 +101,6 @@ A key highlight of this portfolio is the direct benchmark comparison on the **De
 
 ---
 
-## 📬 Contact & Academic Inquiries
+## 📬 Contact & Collaboration
 
-If you are a Principal Investigator (PI) reviewing this repository for research internships (DAAD WISE, Mitacs Globalink) or MS admissions in Computational Biology / Bioinformatics, please feel free to inspect the project modules or contact me via GitHub.
+Open to research discussions, scientific collaborations, and inquiries in Molecular Machine Learning, Computational Biology, and Structure-Based Drug Design. Reach out via [GitHub Issues / Discussions](https://github.com/hardiksood21/ai-drug-discovery) or email.
