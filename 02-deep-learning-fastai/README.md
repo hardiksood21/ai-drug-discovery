@@ -44,18 +44,28 @@ A custom PyTorch deep learning classifier was constructed using transfer learnin
 - **Learning Rate Schedule**: Cosine Annealing with Warmup
 - **Validation Accuracy**: `>94.5%`
 
+### Training & Validation Metrics Plot
+Below is the evaluation figure tracking CrossEntropy loss minimization and classification accuracy convergence:
+
+![PyTorch Training Curves](./pytorch_training_curves.png)
+
 ---
 
 ## 4. Repository Files
 
 - **`pytorch_classifier.py`**: Modular Python execution script implementing data loading, model architecture customization, custom training loop with validation tracking, and confusion matrix plotting.
 - **`pytorch_classifier.ipynb`**: Interactive Google Colab notebook with step-by-step visual execution.
+- **`pytorch_training_curves.png`**: High-resolution (300 DPI) training metrics plot.
 
 ---
 
 ## 5. Reproduction
 
+### Local Execution
 ```bash
 pip install torch torchvision scikit-learn matplotlib pillow pandas numpy
 python pytorch_classifier.py
 ```
+
+### Google Colab Execution
+Upload `pytorch_classifier.ipynb` to Google Colab and run all cells sequentially.

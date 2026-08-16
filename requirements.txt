@@ -1,0 +1,17 @@
+# Core Deep Learning & Scientific Computing
+torch>=2.0.0
+torchvision>=0.15.0
+torch-geometric>=2.4.0
+numpy>=1.23.0
+pandas>=2.0.0
+scipy>=1.10.0
+scikit-learn>=1.2.0
+matplotlib>=3.7.0
+
+# Cheminformatics & Computational Biology
+rdkit>=2023.03.1
+deepchem>=2.7.0
+
+# Utilities
+tqdm>=4.65.0
+requests>=2.30.0
