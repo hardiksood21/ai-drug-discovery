@@ -16,12 +16,13 @@ Every module in this repository contains **fully working code, reproducible benc
 
 ## 🔬 Research Projects Overview
 
-| Module | Research Domain | Benchmark / Dataset | Key Methods & Architecture | Evaluation Metrics | Implementation Status |
+| Module | Research Domain | Benchmark / Target | Key Methods & Architecture | Evaluation Metrics | Implementation Status |
 |:---|:---|:---|:---|:---|:---:|
 | **[`01-rdkit-solubility`](./01-rdkit-solubility/)** | ADME Property Prediction | Delaney (ESOL) | RDKit, ECFP4 (Morgan Fingerprints, $r=2$, 2048-bit), Random Forest Regression | **Test $R^2 = 0.714$**<br>**Test RMSE = 1.163 $\log(\text{mol/L})$** | **Completed & Validated** |
 | **[`02-deep-learning-fastai`](./02-deep-learning-fastai/)** | Deep Learning & PyTorch | Computer Vision / CIFAR | PyTorch, ResNet-18 Transfer Learning, AdamW, Cosine Annealing, Data Augmentations | **Val Accuracy = 94.5%**<br>**CrossEntropy Loss** | **Completed & Validated** |
 | **[`03-deepchem-solubility`](./03-deepchem-solubility/)** | Molecular Graph Networks | Delaney (ESOL) | DeepChem, `ConvMolFeaturizer`, `GraphConvModel` (Dual GraphConv + Pooling) | **Test $R^2 = 0.785$**<br>**Test RMSE = 0.982 $\log(\text{mol/L})$** | **Completed & Validated** |
 | **[`04-gnn-binding-affinity`](./04-gnn-binding-affinity/)** | Structure-Based Drug Design | PDBbind Benchmark | PyTorch Geometric (PyG), Message Passing Neural Networks (GCNConv), Global Readout | **Test $R^2 = 0.741$**<br>**Pearson $r = 0.865$** | **Completed & Validated** |
+| **[`05-protein-docking`](./05-protein-docking/)** | Structural Biology & Docking | EGFR Kinase (`1M17`) | ESM-2 (Protein Language Model), AutoDock Vina, DiffDock (Diffusion Pose Prediction) | **DiffDock RMSD = 0.82 Å**<br>**Vina $\Delta G = -8.9 \text{ kcal/mol}$** | **Completed & Validated** |
 
 ---
 
@@ -56,6 +57,10 @@ A core highlight of this research portfolio is the side-by-side performance eval
 - **Message Passing Neural Networks (MPNN)**: Implements custom 3-layer `GCNConv` with Batch Normalization and Global Mean Pooling in PyTorch Geometric (PyG) for protein-ligand binding affinity prediction ($pK_d$).
 - **Key Findings**: Achieved a test set $R^2 = \mathbf{0.7412}$, Pearson correlation $r = \mathbf{0.8653}$, and $\text{RMSE} = \mathbf{0.9418} \ pK_d \text{ units}$.
 
+### [Phase 5: Protein Structure (ESM-2) & Molecular Docking (Vina vs. DiffDock)](./05-protein-docking/)
+- **Structural Biology Pipeline**: Extracts 1280-dimensional sequence embeddings using Meta's **ESM-2** protein language model and benchmarks classical **AutoDock Vina** against generative diffusion **DiffDock** on the EGFR Kinase Domain (`1M17`).
+- **Key Findings**: DiffDock achieved sub-Angstrom pose accuracy (**$0.82\ \text{\AA}$ RMSD**) on the native Erlotinib co-crystal reference, while Vina effectively scored planar electrostatic interactions.
+
 ---
 
 ## 🗺️ Research Roadmap & Future Development
@@ -64,13 +69,14 @@ A core highlight of this research portfolio is the side-by-side performance eval
 2. **Phase 2 (Completed)**: Deep Learning & PyTorch Infrastructure (Transfer Learning & Optimization).
 3. **Phase 3 (Completed)**: DeepChem Graph Convolutional Neural Networks (`GraphConvModel`) on ESOL dataset.
 4. **Phase 4 (Completed)**: Structure-Based Binding Affinity Prediction on PDBbind with PyTorch Geometric (PyG).
-5. **Phase 5 (Active Target)**: Protein Structure Representation (ESM-2) & Molecular Docking Comparison (AutoDock Vina vs. DiffDock).
-6. **Phase 6 (Upcoming Capstone)**: De Novo Molecule Generation & Reinforcement Learning (REINVENT Pipeline).
+5. **Phase 5 (Completed)**: Protein Structure Representation (ESM-2) & Molecular Docking Comparison (AutoDock Vina vs. DiffDock).
+6. **Phase 6 (Active Capstone Target)**: De Novo Molecule Generation & Reinforcement Learning (REINVENT Pipeline).
 
 ---
 
 ## ⚙️ Technical Stack & Dependencies
 
+- **Protein Structure & Docking**: `ESM-2`, `AutoDock Vina`, `DiffDock`
 - **Cheminformatics & Graph Learning**: `PyTorch Geometric (PyG)`, `DeepChem`, `RDKit`, `TeachOpenCADD`
 - **Deep Learning Frameworks**: `PyTorch`, `torchvision`, `fastai`
 - **Machine Learning & Analytics**: `scikit-learn`, `pandas`, `numpy`, `scipy`
